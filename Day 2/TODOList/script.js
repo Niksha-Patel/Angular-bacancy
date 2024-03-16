@@ -1,10 +1,27 @@
-const listOfItems=document.getElementById("list-of-items");
 
+function addToList() {
+    const inputBox = document.getElementById('input-box');
+    const inputValue = inputBox.value; 
 
-function addtolist(){
-    var input = document.getElementById("input-box");
-    let li=document.createElement("li");
-    li.innerHTML = input.value;
-    listOfItems.appendChild(li);
+    if (inputValue) { 
+        const hiddenContainer = document.createElement('div');
+        hiddenContainer.classList.add('hidden-container');
+        
+        const newContainer = document.createElement('div');
+        newContainer.classList.add('new-container', 'add-item');
 
+        const paragraph = document.createElement('p');
+        paragraph.id = 'add-items-here';
+        paragraph.textContent = inputValue;
+
+        newContainer.appendChild(paragraph);
+        hiddenContainer.appendChild(newContainer);
+
+        const listContainer = document.querySelector('.list-container');
+        listContainer.appendChild(hiddenContainer);
+
+        inputBox.value = '';
+    }
 }
+
+

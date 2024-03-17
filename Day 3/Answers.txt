@@ -155,14 +155,23 @@ Output: one
 Output:10 7
 
 
-4.          const [a, b, ...[ length ]] = [1, 2, 3];
+4.          const [a, b, ...length] = [1, 2, 3];  ===> [ length ] is consider as spread operator variable
             console.log(a, b, length);
-Output:
+Output:1,2,3
 
 
 5.          const [a, b, ...{ length }] = [1, 2, 3];
             console.log(a, b, length);
+Output:1 2 1
 
-
-
+            |-------------------------------------------------------------------------------------------------------------------                                                          
+            | const [a, b, ...length] = [1, 2, 3];
+            | console.log(a, b, length);================>1 2 [ 3 ]====>Make separate array
+            | 
+            | const [a, b, ...[length]] = [1, 2, 3];
+            | console.log(a, b, length);================>1 2 3===>
+            | 
+            | const [a, b, ...{length}] = [1, 2, 3];
+            | console.log(a, b, length);================>1 2 1===>length of remaining elements(elements of spread operator)
+            |-------------------------------------------------------------------------------------------------------------------
 

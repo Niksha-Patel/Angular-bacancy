@@ -1,0 +1,168 @@
+----------------------------------------------Hoisting----------------------------------------------------------------------------------
+1.List down techniques with examples where hoisting does not work as expected in JS.
+
+
+2.Give output:
+
+            var a=4;
+            function greet(){
+                b="hello";
+                console.log(b);
+                var b;
+            }
+            greet();
+            console.log(b);
+
+
+greet will be called at that time as b="hello" it will print hello because at compilation var b will be detected(hoisting)
+But during console.log(b) it will throw error because the scope of b is not global.
+
+
+--------------------------------------------------------Closure----------------------------------------------------------------------------------
+
+1.Write a factorial program of given range: 0 - 10 using closure.
+
+
+2.Write an output with explaination.
+
+            function calculate(x){
+                function multiply(y){
+                    return x*y;
+                }
+                return multiply;
+            }
+            
+            const multiply3=calculate(3);
+            const multiply4=calculate(4);
+            
+            console.log(multiply3);
+            console.log(multiply4);
+            
+            console.log(multiply3(6));
+            console.log(multiply3(2));
+
+output:[Function: multiply]  ===>  This is because calculate will return multiply function with their closure
+       [Function: multiply]
+       18  =====================> multiply3=calculate(3) returns multiply now multiply(6) returns 3*6
+       8   =====================>
+
+
+3.Write an output with explanation:
+
+            function outest(){
+                var c=12;
+                function outer(b){
+                    function inner(){
+                        console.log(a,b,c);
+                    }
+                    let a=10;
+                    return inner;
+                }
+
+                return outer;
+            }
+            let a=100;
+            var close = outest()("Hi closures");
+            close();
+
+Output: 10 Hi closures 12
+
+a=10(Hoisted) local scope
+b=Hi closures
+c=12(Declared and initialized)
+
+
+4.Write an output with explanation:
+
+            function setCount(){
+                let number = 0;
+                return function () {
+                    console.log(number++);  ||   const counter = setCount();==>0   counter();==>2 ==>4
+                    console.log(++number);  ||                                 2                4    6
+                }
+            }
+            const counter = setCount();
+            counter();
+            counter();
+            counter();
+
+Output:0 2 2 4 4 6 
+
+
+
+-----------------------------------------------Spread Operator----------------------------------------------------------------------------
+
+
+1.Converts a specified number to an array of digits. -------------doubt--------------------
+ 	Input - 123
+ 	Output- [1,2,3]
+
+    var result=[..."123"]
+    console.log(result);
+
+
+2.
+        var alphabets = ["A", ..."BCD", "E"];
+        console.log(alphabets); 
+
+Output: ['A','B','C','D','E']
+
+
+3.                                                  --------------doubt------------------------
+        var newArray = [...[,,]];
+        console.log(newArray);
+
+Output:
+
+
+-----------------------------------------------Object/Array Destructuring----------------------------------------------------------------------------
+
+
+1.          const arrValue = ['one', 'two', 'three', 'four'];
+            const [ ...x, y] = arrValue;
+            console.log(x); 
+
+Output:Error 
+      const [y, ...x] = arrValue; this will work
+
+              |-----------------------------------------------------------------------|
+              | const arrValue = ['one', 'two', 'three', 'four'];                     |
+              | const [ ...x] = arrValue; // Spread all elements of arrValue into x   |
+              | arrValue.length=3                                                     |  
+              | console.log(arrValue);     [ 'one', 'two', 'three' ]                  |
+              |-----------------------------------------------------------------------|
+
+
+
+2.	        // nested destructuring assignment in arrays
+            const arrValue = ["one", ["two", "three"]];
+            const [x, [y, z]] = arrValue;
+            console.log(x);
+            console.log([y,z]); 
+            console.log(z); 
+
+Output: one
+        [ 'two', 'three' ]
+        three
+
+           
+3.          // assigning default value 5 and 7
+            let arrValue = [10];
+            let [x = 5,  y = 7] = arrValue;
+            console.log(x); ====>10
+            console.log(y); ====>7(default)
+
+Output:10 7
+
+
+4.          const [a, b, ...[ length ]] = [1, 2, 3];
+            console.log(a, b, length);
+Output:
+
+
+5.          const [a, b, ...{ length }] = [1, 2, 3];
+            console.log(a, b, length);
+
+
+
+

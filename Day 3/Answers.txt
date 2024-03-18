@@ -175,3 +175,57 @@ Output:1 2 1
             | console.log(a, b, length);================>1 2 1===>length of remaining elements(elements of spread operator)
             |-------------------------------------------------------------------------------------------------------------------
 
+
+
+-----------------------------------------------Call, apply and bind----------------------------------------------------------------------------
+
+
+1.Define a program with two objects person1 and person2. Person1, person2 both have firstname, lastname properties(use any name you want). 
+  Add a function fullname in person1 with two arguments (prefix, suffix), which prints persons fullname using firstname lastname and adds prefix and suffix accordingly if present. 
+  Note: this fullname function is present in object person1 only. 
+  
+  	Using call, apply, bind,  print the fullname of person2 with proper parameter passed.
+
+
+#program:
+            const person1 = {
+                fname: "Niksha",
+                lname: "Patel",
+                fullname: function(prefix, suffix) {
+                    let fullName = this.fname + " " + this.lname;
+                    if (prefix) {
+                        fullName = prefix + " " + fullName;
+                    }
+                    if (suffix) {
+                        fullName = fullName + " " + suffix;
+                    }
+                    console.log(fullName);
+                }
+            };
+
+            const person2 = {
+                fname: "Vrunda",
+                lname: "Patel"
+            };
+
+            person1.fullname.call(person2, "Miss.", "Jr.");
+            person1.fullname.apply(person2, ["Mrs.", "Jr."]);
+            const FullnameOfPerson2 = person1.fullname.bind(person2, "Dr.", "Sr");
+            FullnameOfPerson2();
+
+
+-----------------------------------------------Prototype----------------------------------------------------------------------------
+
+2.Define a program that creates a custom method for the Array or Object prototype, then calls that method on its instance.
+
+
+#Program:
+
+            Object.prototype.Concat = function(a,b) {
+                return a + " " + this + " " + b;
+            };
+
+            const Middle = "Niksha,";
+
+            const result = Middle.Concat("Hii", "How are you?");
+            console.log(result);

@@ -108,12 +108,13 @@ Output:0 2 2 4 4 6
 Output: ['A','B','C','D','E']
 
 
-3.                                                  --------------doubt------------------------
+3.                                                  
         var newArray = [...[,,]];
         console.log(newArray);
 
-Output:
+Output:[undefined, undefined]
 
+This is because "[,,]" is defined as array having no element(undefined).
 
 -----------------------------------------------Object/Array Destructuring----------------------------------------------------------------------------
 

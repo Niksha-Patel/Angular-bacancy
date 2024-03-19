@@ -1,7 +1,34 @@
 ----------------------------------------------Hoisting----------------------------------------------------------------------------------
 1.List down techniques with examples where hoisting does not work as expected in JS.
 
+(i)
+            console.log(a);
+            a = 10;  ///instead var a=10;
+            console.log(a);
+            
+in above case hoisting want work because varriable is not declared
 
+(ii)        console.log(name);
+            let name = 'Nik';
+
+            but interpreter will see it as
+
+            let name;
+            console.log(name); 
+            name = 'Nik';
+
+            Same goes for const (cannot access before initialization)
+
+(iii)When Function is used as an expression
+
+            fun(); 
+            let fun = () =>{
+                let name = 'nik';
+                console.log(name);
+            }
+
+    In case of var and Const also it will not work.
+            
 2.Give output:
 
             var a=4;

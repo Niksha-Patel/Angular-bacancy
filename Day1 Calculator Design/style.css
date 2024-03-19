@@ -6,20 +6,21 @@
     align-content: center;
     color: #ffffff;
 }
-/* .main-container{
-    width: 100%;
-} */
+
 
 html,body{
     height: 100%;
     width: 100%;
     justify-content: center;
     align-items: center;
-    display:flex;
     background: linear-gradient(45deg,#0a0a0a,#3a4452 );
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
-
-header{
+.main-section{
+    display:flex;
+}
+header,footer{
     width: 100%;
     padding: 30px;
     text-align: center;
@@ -27,8 +28,18 @@ header{
     color: white;
     font-size: 20px;
     position: sticky;
-    top: 0;
 }
+
+.footer{
+    bottom: 0px;
+    position:absolute;
+    width: 100%;
+}
+.outer{
+    width: 100%;
+}
+
+
 .button{
     border: none;
     width: 50px;
@@ -57,6 +68,7 @@ input{
 }
 
 .Container{
+    width: fit-content;
     border: 1px solid #717377;
     padding: 20px;
     border-radius: 16px;
@@ -64,18 +76,6 @@ input{
     box-shadow: 0px 3px 15px rgba(113,115,119);
     justify-content: center;
     align-items: center;
-    
-}
-
-footer{
-   
-        width: 100%;
-        padding: 30px;
-        text-align: center;
-        background: #1abc9c;
-        color: white;
-        font-size: 20px;
-        position: sticky;
-        bottom: 0;
+    margin: 25px auto;
     
 }

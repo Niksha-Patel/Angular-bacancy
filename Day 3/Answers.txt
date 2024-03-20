@@ -49,6 +49,18 @@ But during console.log(b) it will throw error because the scope of b is not glob
 
 1.Write a factorial program of given range: 0 - 10 using closure.
 
+            function Factorial() {
+                function mul(n) {
+                    if (n <= 1) {
+                        return 1; 
+                    }
+                    var result = n * mul(n - 1);
+                    return result;
+                }
+                return mul;
+            }
+            const f = Factorial();
+            console.log(f(5));
 
 2.Write an output with explaination.
 

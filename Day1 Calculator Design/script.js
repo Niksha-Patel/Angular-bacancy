@@ -1,25 +1,35 @@
 // Stack data structure
 class Stack {
   constructor() {
-      this.items = [];
+    this.items = [];
   }
 
   push(element) {
-      this.items.push(element);
+    this.items.push(element);
   }
 
   pop() {
-      if (this.items.length === 0) {
-          return "Underflow";
-      }
-      return this.items.pop();
+    if (this.items.length === 0) {
+      return "Underflow";
+    }
+    return this.items.pop();
   }
 
   isEmpty() {
-      return this.items.length === 0;
+    return this.items.length === 0;
+  }
+
+  printStack(){
+    if(this.items.length===0){
+      return;
+    }
+    else{
+      for(let i=this.items.length-1;i>=0;i--){
+        console.log(this.items[i]);
+      }
+    }
   }
 }
-
 
 function clearAll() {
   var input = document.getElementById("inputBox");
@@ -27,9 +37,8 @@ function clearAll() {
 }
 
 function removeLastInput() {
-  const displayElement= document.getElementById("inputBox");
+  const displayElement = document.getElementById("inputBox");
   displayElement.value = displayElement.value.slice(0, -1);
-
 }
 
 function input(inputValue) {
@@ -37,8 +46,22 @@ function input(inputValue) {
   var lastChar = inputBoxElement.value.slice(-1);
   var currentInput = inputBoxElement.value;
 
-  //cannot enter 2.3.4
-  if (inputValue === "." && !/[*+\-/.]/.test(currentInput.slice(-1))) {
+  var lastIndex = currentInput.length - 1;
+  var decimalExists = false;
+  for (var i = lastIndex; i >= 0; i--) {
+    if (currentInput[i] === '.') {
+      decimalExists = true;
+      break;
+    } else if (/[/*+\-]/.test(currentInput[i])) {
+      break;
+    }
+  }
+
+  if (decimalExists && inputValue === '.') {
+    return;
+  }
+
+  if (inputValue === "." && !/[*+\-/.]/.test(currentInput.slice(-1)) && /[^0-9\.]/.test(currentInput)) {
     inputBoxElement.value += inputValue;
     return;
   }
@@ -56,7 +79,6 @@ function input(inputValue) {
   console.log(inputBoxElement.value);
 }
 
-
 function result() {
   let expression = document.getElementById("inputBox").value;
   try {
@@ -68,62 +90,56 @@ function result() {
   }
 }
 
-
-
-
 // Create a stack to store history
 const historyStack = new Stack();
 
 // Function to add calculation history to the stack
 function addToHistory(expression) {
-    historyStack.push(expression);
+  historyStack.push(expression);
 }
+
 
 // Function to display history
 function displayHistory() {
   toggleHistory();
-
+  // historyStack.printStack();
   console.log("Calculation History:");
-    // Create a temporary stack to preserve original stack
-    const tempStack = new Stack();
-    var historyContainer = document.getElementById("history");
-    historyContainer.innerHTML = "";
+  // Create a temporary stack to preserve original stack
+  const tempStack = new Stack();
+  var historyContainer = document.getElementById("history");
+  historyContainer.innerHTML = "";
 
-    // Move items from original stack to temporary stack and display
-    while (!historyStack.isEmpty()) {
-        const expression = historyStack.pop();
-        var historyItem = document.createElement("div");
-        historyItem.classList.add("history-item");
-        historyItem.textContent = expression;
-        historyContainer.appendChild(historyItem);
+  // Move items from original stack to temporary stack and display
+  while (!historyStack.isEmpty()) {
+    console.log(historyStack);
+    const expression = historyStack.pop();
+    var historyItem = document.createElement("div");
+    historyItem.classList.add("history-item");
+    historyItem.textContent = expression;
+    historyContainer.appendChild(historyItem);
 
-        console.log(expression);
-        // Push item back to original stack
-        tempStack.push(expression);
-    }
+    console.log(expression);
+    // Push item back to original stack
+    tempStack.push(expression);
+  }
 
-    // Restore items to original stack
-    while (!tempStack.isEmpty()) {
-        historyStack.push(tempStack.pop());
-    }
+  // Restore items to original stack
+  while (!tempStack.isEmpty()) {
+    historyStack.push(tempStack.pop());
+  }
 }
 
 function toggleHistory() {
   const historyContainer = document.querySelector(".history-container");
   if (historyContainer.style.display === "none") {
-      historyContainer.style.display = "block";
+    historyContainer.style.display = "block";
   } else {
-      historyContainer.style.display = "none";
+    historyContainer.style.display = "none";
   }
 }
 
-
-
-
-
-
 function changeTheme() {
-  var getTheme = document.querySelector(".change-theme").textContent;
+  var getTheme = document.querySelector(".nav").textContent;
 
   if (getTheme === "Light Theme") {
     document.body.style.background = "white";
@@ -131,7 +147,7 @@ function changeTheme() {
     for (var i = 0; i < elements.length; i++) {
       elements[i].style.color = "Black";
     }
-    document.querySelector(".change-theme").textContent = "Dark Theme";
+    document.querySelector(".nav").textContent = "Dark Theme";
   }
   if (getTheme == "Dark Theme") {
     const newLocal = "Black";
@@ -140,6 +156,6 @@ function changeTheme() {
     for (var i = 0; i < elements.length; i++) {
       elements[i].style.color = "White";
     }
-    document.querySelector(".change-theme").textContent = "Light Theme";
+    document.querySelector(".nav").textContent = "Light Theme";
   }
 }

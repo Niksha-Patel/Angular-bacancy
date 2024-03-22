@@ -16,10 +16,12 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+
 .main-section {
   display: flex;
   color: #ffffff;
 }
+
 header,
 footer {
   display: flex;
@@ -38,6 +40,7 @@ footer {
   position: absolute;
   width: 100%;
 }
+
 .outer {
   width: 100%;
 }
@@ -82,19 +85,23 @@ input {
   margin: 25px auto;
 }
 
-.themes-container {
-  background: transparent;
+.nav-container {
   float: right;
+  background: transparent;
+  display: flex; 
+  margin-right: 0px;
 }
 
-.change-theme {
+.nav {
   float: right;
   color: #ffffff;
+  margin-left: 15px;
 }
-.theme-container button {
+
+.nav-container button {
   background: transparent;
-  float: right;
 }
+
 .history-container {
   display: none;
   background-color: #f8f8f8;

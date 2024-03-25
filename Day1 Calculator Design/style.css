@@ -116,3 +116,7 @@ input {
 .history-item {
   margin-bottom: 5px;
 }
+
+.rowZeroKey{
+  width: 25px;
+}

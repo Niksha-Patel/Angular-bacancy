@@ -1,0 +1,271 @@
+----------------------------------------------Hoisting----------------------------------------------------------------------------------
+1.List down techniques with examples where hoisting does not work as expected in JS.
+
+(i)
+            console.log(a);
+            a = 10;  ///instead var a=10;
+            console.log(a);
+            
+in above case hoisting want work because varriable is not declared
+
+(ii)        console.log(name);
+            let name = 'Nik';
+
+            but interpreter will see it as
+
+            let name;
+            console.log(name); 
+            name = 'Nik';
+
+            Same goes for const (cannot access before initialization)
+
+(iii)When Function is used as an expression
+
+            fun(); 
+            let fun = () =>{
+                let name = 'nik';
+                console.log(name);
+            }
+
+    In case of var and Const also it will not work.
+            
+2.Give output:
+
+            var a=4;
+            function greet(){
+                b="hello";
+                console.log(b);
+                var b;
+            }
+            greet();
+            console.log(b);
+
+
+greet will be called at that time as b="hello" it will print hello because at compilation var b will be detected(hoisting)
+But during console.log(b) it will throw error because the scope of b is not global.
+
+
+--------------------------------------------------------Closure----------------------------------------------------------------------------------
+
+1.Write a factorial program of given range: 0 - 10 using closure.
+
+            function Factorial() {
+                function mul(n) {
+                    if (n <= 1) {
+                        return 1; 
+                    }
+                    var result = n * mul(n - 1);
+                    return result;
+                }
+                return mul;
+            }
+            const f = Factorial();
+            console.log(f(5));
+
+2.Write an output with explaination.
+
+            function calculate(x){
+                function multiply(y){
+                    return x*y;
+                }
+                return multiply;
+            }
+            
+            const multiply3=calculate(3);
+            const multiply4=calculate(4);
+            
+            console.log(multiply3);
+            console.log(multiply4);
+            
+            console.log(multiply3(6));
+            console.log(multiply3(2));
+
+output:[Function: multiply]  ===>  This is because calculate will return multiply function with their closure
+       [Function: multiply]
+       18  =====================> multiply3=calculate(3) returns multiply now multiply(6) returns 3*6
+       8   =====================>
+
+
+3.Write an output with explanation:
+
+            function outest(){
+                var c=12;
+                function outer(b){
+                    function inner(){
+                        console.log(a,b,c);
+                    }
+                    let a=10;
+                    return inner;
+                }
+
+                return outer;
+            }
+            let a=100;
+            var close = outest()("Hi closures");
+            close();
+
+Output: 10 Hi closures 12
+
+a=10(Hoisted) local scope
+b=Hi closures
+c=12(Declared and initialized)
+
+
+4.Write an output with explanation:
+
+            function setCount(){
+                let number = 0;
+                return function () {
+                    console.log(number++);  ||   const counter = setCount();==>0   counter();==>2 ==>4
+                    console.log(++number);  ||                                 2                4    6
+                }
+            }
+            const counter = setCount();
+            counter();
+            counter();
+            counter();
+
+Output:0 2 2 4 4 6 
+
+
+
+-----------------------------------------------Spread Operator----------------------------------------------------------------------------
+
+
+1.Converts a specified number to an array of digits. -------------doubt--------------------
+ 	Input - 123
+ 	Output- [1,2,3]
+
+    var result=[..."123"]
+    console.log(result);
+
+
+2.
+        var alphabets = ["A", ..."BCD", "E"];
+        console.log(alphabets); 
+
+Output: ['A','B','C','D','E']
+
+
+3.                                                  
+        var newArray = [...[,,]];
+        console.log(newArray);
+
+Output:[undefined, undefined]
+
+This is because "[,,]" is defined as array having no element(undefined).
+
+-----------------------------------------------Object/Array Destructuring----------------------------------------------------------------------------
+
+
+1.          const arrValue = ['one', 'two', 'three', 'four'];
+            const [ ...x, y] = arrValue;
+            console.log(x); 
+
+Output:Error 
+      const [y, ...x] = arrValue; this will work
+
+              |-----------------------------------------------------------------------|
+              | const arrValue = ['one', 'two', 'three', 'four'];                     |
+              | const [ ...x] = arrValue; // Spread all elements of arrValue into x   |
+              | arrValue.length=3                                                     |  
+              | console.log(arrValue);     [ 'one', 'two', 'three' ]                  |
+              |-----------------------------------------------------------------------|
+
+
+
+2.	        // nested destructuring assignment in arrays
+            const arrValue = ["one", ["two", "three"]];
+            const [x, [y, z]] = arrValue;
+            console.log(x);
+            console.log([y,z]); 
+            console.log(z); 
+
+Output: one
+        [ 'two', 'three' ]
+        three
+
+           
+3.          // assigning default value 5 and 7
+            let arrValue = [10];
+            let [x = 5,  y = 7] = arrValue;
+            console.log(x); ====>10
+            console.log(y); ====>7(default)
+
+Output:10 7
+
+
+4.          const [a, b, ...length] = [1, 2, 3];  ===> [ length ] is consider as spread operator variable
+            console.log(a, b, length);
+Output:1,2,3
+
+
+5.          const [a, b, ...{ length }] = [1, 2, 3];
+            console.log(a, b, length);
+Output:1 2 1
+
+            |-------------------------------------------------------------------------------------------------------------------                                                          
+            | const [a, b, ...length] = [1, 2, 3];
+            | console.log(a, b, length);================>1 2 [ 3 ]====>Make separate array
+            | 
+            | const [a, b, ...[length]] = [1, 2, 3];
+            | console.log(a, b, length);================>1 2 3===>
+            | 
+            | const [a, b, ...{length}] = [1, 2, 3];
+            | console.log(a, b, length);================>1 2 1===>length of remaining elements(elements of spread operator)
+            |-------------------------------------------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------Call, apply and bind----------------------------------------------------------------------------
+
+
+1.Define a program with two objects person1 and person2. Person1, person2 both have firstname, lastname properties(use any name you want). 
+  Add a function fullname in person1 with two arguments (prefix, suffix), which prints persons fullname using firstname lastname and adds prefix and suffix accordingly if present. 
+  Note: this fullname function is present in object person1 only. 
+  
+  	Using call, apply, bind,  print the fullname of person2 with proper parameter passed.
+
+
+#program:
+            const person1 = {
+                fname: "Niksha",
+                lname: "Patel",
+                fullname: function(prefix, suffix) {
+                    let fullName = this.fname + " " + this.lname;
+                    if (prefix) {
+                        fullName = prefix + " " + fullName;
+                    }
+                    if (suffix) {
+                        fullName = fullName + " " + suffix;
+                    }
+                    console.log(fullName);
+                }
+            };
+
+            const person2 = {
+                fname: "Vrunda",
+                lname: "Patel"
+            };
+
+            person1.fullname.call(person2, "Miss.", "Jr.");
+            person1.fullname.apply(person2, ["Mrs.", "Jr."]);
+            const FullnameOfPerson2 = person1.fullname.bind(person2, "Dr.", "Sr");
+            FullnameOfPerson2();
+
+
+-----------------------------------------------Prototype----------------------------------------------------------------------------
+
+2.Define a program that creates a custom method for the Array or Object prototype, then calls that method on its instance.
+
+
+#Program:
+
+            Object.prototype.Concat = function(a,b) {
+                return a + " " + this + " " + b;
+            };
+
+            const Middle = "Niksha,";
+
+            const result = Middle.Concat("Hii", "How are you?");
+            console.log(result);

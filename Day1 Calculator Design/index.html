@@ -1,48 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="style.css" rel="stylesheet" type="text/css"/>
+    <link href="style.css" rel="stylesheet" type="text/css" />
     <title>Document</title>
 </head>
+
 <body>
-    <div class="Container display">
-        <div class="row">
-            <input class="input" type="text" placeholder="0" id="inputBox">
+
+    <div class="outer">
+        <div class="header">
+            <header>
+                <p>Calculator</p>
+                <div class="nav-container">
+                    <button class="nav" onclick="changeTheme()">Light Theme</button>
+                    <button class="nav" onclick="displayHistory()">History</button>
+                </div>
+            </header>
         </div>
-        <div class="row">
-            <button class="button"><b>AC</b></button>
-            <button class="button"><b>DEL</b></button>
-            <button class="button"><b>%</b></button>
-            <button class="button"><b>/</b></button>
+        <div class="main-section">
+            <div class="Container display">
+                <div class="row">
+                    <input class="input" type="text" placeholder="0" id="inputBox">
+                </div>
+                <div class="row">
+                    <button class="button" onclick="clearAll()"><b>AC</b></button>
+                    <button class="button" onclick="removeLastInput()"><b>DEL</b></button>
+                    <button class="button" onclick="input('%')"><b>%</b></button>
+                    <button class="button" onclick="input('/')"><b>/</b></button>
+                </div>
+                <div class="row">
+                    <button class="button" onclick="input('7')"><b>7</b></button>
+                    <button class="button" onclick="input('8')"><b>8</b></button>
+                    <button class="button" onclick="input('9')"><b>9</b></button>
+                    <button class="button" onclick="input('*')"><b>*</b></button>
+                </div>
+                <div class="row">
+                    <button class="button" onclick="input('4')"><b>4</b></button>
+                    <button class="button" onclick="input('5')"><b>5</b></button>
+                    <button class="button" onclick="input('6')"><b>6</b></button>
+                    <button class="button" onclick="input('-')"><b>-</b></button>
+                </div>
+                <div class="row">
+                    <button class="button" onclick="input('1')"><b>1</b></button>
+                    <button class="button" onclick="input('2')"><b>2</b></button>
+                    <button class="button" onclick="input('3')"><b>3</b></button>
+                    <button class="button" onclick="input('+')"><b>+</b></button>
+                </div>
+                <div class="row">
+                    <button class="button" onclick="input('00')"><b>00</b></button>
+                    <button class="button" onclick="input('0')"><b>0</b></button>
+                    <button class="button" onclick="input('.')"><b>.</b></button>
+                    <button class="button" onclick="result()"><b>=</b></button>
+                </div>
+               
+            </div>
+            <div class="history-container">
+                <h3>Calculation History:</h3>
+                <div id="history"></div>
+            </div>
+            
         </div>
-        <div class="row">
-            <button class="button"><b>7</b></button>
-            <button class="button"><b>8</b></button>
-            <button class="button"><b>9</b></button>
-            <button class="button"><b>*</b></button>
-        </div>
-        <div class="row">
-            <button class="button"><b>4</b></button>
-            <button class="button"><b>5</b></button>
-            <button class="button"><b>6</b></button>
-            <button class="button"><b>-</b></button>
-        </div>
-        <div class="row">
-            <button class="button"><b>1</b></button>
-            <button class="button"><b>2</b></button>
-            <button class="button"><b>3</b></button>
-            <button class="button"><b>+</b></button>
-        </div>
-        <div class="row">
-            <button class="button"><b>00</b></button>
-            <button class="button"><b>0</b></button>
-            <button class="button"><b>.</b></button>
-            <button class="button"><b>=</b></button>
+        <div class="footer">
+            <footer>
+                <H6>Footer</H6>
+            </footer>
         </div>
     </div>
-
+       
     <script src="script.js"></script>
 </body>
+
 </html>
